@@ -1,0 +1,144 @@
+# LAW_INDEX — Canonical Laws of the UQLT Full-System Proof Engine
+
+This document enumerates the **foundational laws** governing the executable system contained in this repository.
+
+These laws are **not optional**, **not tunable**, and **not introduced mid-simulation**.  
+They are present from initialization and activate only when admissible conditions are met.
+
+If any law is violated, the engine halts.
+
+---
+
+## Law 1 — Containment Precedence
+
+No structure, state, or interaction may exist outside containment.
+
+Containment is not a wall or boundary object.  
+Containment is defined exclusively by the **emitted EMN field envelope** of a core.
+
+If no containment exists, no structure may persist.
+
+---
+
+## Law 2 — Constraint → Saturation → Collapse
+
+All units are constrained by a maximum admissible energy-motion capacity.
+
+When a unit reaches saturation:
+- It may not remain in its current state
+- It must transition into a higher-order state
+- If no legal transition exists, the system halts
+
+Collapse is not probabilistic or optional.  
+Collapse is the **only legal resolution** to saturation.
+
+---
+
+## Law 3 — Recursive Collapse
+
+Collapse is scale-invariant and recursive.
+
+A collapse event may:
+- create a core
+- generate a new containment
+- enable further collapse events within that containment
+
+There is no terminal scale at which collapse ceases to apply.
+
+---
+
+## Law 4 — No Free Propagation
+
+Energy may not propagate freely without resistance.
+
+All propagation incurs:
+- delay
+- weakening
+- constraint
+
+Unconstrained propagation is illegal and results in system failure.
+
+---
+
+## Law 5 — Helium Dominance Trigger
+
+Helium-family accumulation is the primary collapse trigger.
+
+When helium-family states dominate a local region beyond the admissible threshold:
+- collapse must occur
+- core formation must follow
+
+Hydrogen and its isotopes are treated as **byproducts**, not primary fuels.
+
+---
+
+## Law 6 — Core Emission (EMN Law)
+
+All cores emit energy outward.
+
+This emitted energy:
+- weakens monotonically with distance
+- defines the containment envelope
+- governs all downstream structure, layering, and stability
+
+No inward-directed core emission is permitted.
+
+---
+
+## Law 7 — Valignity (Radial Ordering Law)
+
+Within containment, effective density orders radially.
+
+Higher-density states stabilize closer to the core.  
+Lower-density states stabilize farther from the core.
+
+This ordering:
+- does not require gravity
+- does not require attraction
+- emerges from EMN field strength alone
+
+Stable hover / neutral bands are permitted outcomes of this law.
+
+---
+
+## Law 8 — Surface Equilibrium
+
+A surface forms at the radius where:
+- inward EMN pressure
+- outward decay / fragmentation pressure
+
+are in equilibrium.
+
+The surface is not imposed.  
+It is an emergent balance condition.
+
+---
+
+## Law 9 — Internal-Only Causation
+
+All causation within the system is internal.
+
+No external forces, frames, or boundary conditions may be invoked to explain outcomes.
+
+If an outcome cannot arise internally, it is invalid.
+
+---
+
+## Law 10 — Structural Closure
+
+All simulations must converge to one of two outcomes:
+1. A structurally closed configuration
+2. A hard failure due to law violation
+
+Open-ended or indeterminate states are not permitted.
+
+---
+
+## Enforcement
+
+Each law is enforced directly in code:
+- illegal states halt execution
+- illegal transitions halt execution
+- illegal propagation halts execution
+
+These laws are validated by explicit tests in the `tests/` directory.
