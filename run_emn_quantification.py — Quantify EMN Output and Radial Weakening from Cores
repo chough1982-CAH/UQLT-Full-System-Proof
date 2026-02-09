@@ -1,0 +1,76 @@
+"""
+run_emn_quantification.py
+
+Quantifies EMN output emitted by CORE states and measures
+radial energy weakening explicitly.
+
+This script:
+- runs EMN emission
+- computes radial energy profiles
+- saves numerical results to disk
+- produces a publication-grade plot
+
+Lock achieved:
+containment = emitted EMN field
+"""
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+from engine.grid import Grid
+from engine.states import State
+from engine.emn_emission import emit_from_cores, compute_radial_energy_profile
+from config.parameters import (
+    STEPS_EMN_ANALYSIS,
+    RANDOM_SEED,
+    DATA_OUTPUT_DIR,
+    PLOT_OUTPUT_DIR,
+    RUN_TIMESTAMP,
+)
+
+np.random.seed(RANDOM_SEED)
+
+
+def run_emn_quantification():
+    grid = Grid()
+
+    # Seed a single core at center
+    c = grid.center
+    grid.set_state(c, c, State.CORE)
+    grid.set_energy(c, c, 3.0)
+
+    # Run EMN emission for multiple steps
+    for _ in range(STEPS_EMN_ANALYSIS):
+        emit_from_cores(grid)
+
+    # Compute radial energy profile
+    radial_profile = compute_radial_energy_profile(grid)
+
+    # Sort by radius
+    radii = sorted(radial_profile.keys())
+    energies = [radial_profile[r] for r in radii]
+
+    # Save numerical data
+    data_path = f"{DATA_OUTPUT_DIR}/emn_radial_profile_{RUN_TIMESTAMP}.csv"
+    with open(data_path, "w") as f:
+        f.write("radius,mean_energy\n")
+        for r, e in zip(radii, energies):
+            f.write(f"{r},{e}\n")
+
+    # Plot
+    plt.figure(figsize=(8, 5))
+    plt.plot(radii, energies, marker="o")
+    plt.xlabel("Radius from Core")
+    plt.ylabel("Mean Energy")
+    plt.title("EMN Output: Radial Energy Weakening")
+    plt.grid(True)
+
+    plot_path = f"{PLOT_OUTPUT_DIR}/emn_radial_profile_{RUN_TIMESTAMP}.png"
+    plt.savefig(plot_path, dpi=200)
+    plt.close()
+
+    return radial_profile
+
+
+if __name__ == "__main__":
+    run_emn_quantification()
