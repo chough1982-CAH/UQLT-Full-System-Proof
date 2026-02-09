@@ -1,0 +1,105 @@
+"""
+states.py
+
+Defines all legal states used by the UQLT Full-System Proof Engine.
+
+States are discrete, finite, and mutually exclusive.
+No state may exist outside this registry.
+
+State transitions are enforced elsewhere; this file defines identity only.
+"""
+
+from enum import Enum, auto
+
+
+class State(Enum):
+    """
+    Canonical discrete states.
+    """
+
+    VOID = auto()
+    STATIC = auto()
+    RADIO = auto()
+    RADIANT = auto()
+    PLASMA = auto()
+
+    HELIUM = auto()
+    HELIUM_FRAGMENT = auto()
+    HYDROGEN = auto()
+    HEAVY = auto()
+
+    CORE = auto()
+
+
+# =========================
+# State Groupings
+# =========================
+
+# Ordered stage chain (early formation)
+STAGE_CHAIN = [
+    State.VOID,
+    State.STATIC,
+    State.RADIO,
+    State.RADIANT,
+    State.PLASMA,
+]
+
+# Helium family (collapse drivers)
+HELIUM_FAMILY = {
+    State.HELIUM,
+    State.HELIUM_FRAGMENT,
+}
+
+# Light / low-constraint residues
+LIGHT_STATES = {
+    State.HYDROGEN,
+}
+
+# Heavy / high-constraint residues
+HEAVY_STATES = {
+    State.HEAVY,
+}
+
+# Collapse-origin state
+CORE_STATES = {
+    State.CORE,
+}
+
+# All material states (non-void)
+MATERIAL_STATES = {
+    State.STATIC,
+    State.RADIO,
+    State.RADIANT,
+    State.PLASMA,
+    State.HELIUM,
+    State.HELIUM_FRAGMENT,
+    State.HYDROGEN,
+    State.HEAVY,
+    State.CORE,
+}
+
+
+# =========================
+# Invariants
+# =========================
+
+def validate_state(state):
+    """
+    Ensures a state is legal.
+    """
+    if not isinstance(state, State):
+        raise ValueError(f"Illegal state type: {state}")
+
+    return True
+
+
+def is_material(state):
+    return state in MATERIAL_STATES
+
+
+def is_helium_family(state):
+    return state in HELIUM_FAMILY
+
+
+def is_core(state):
+    return state in CORE_STATES
